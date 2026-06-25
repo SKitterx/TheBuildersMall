@@ -1,3 +1,4 @@
+console.log("Main loaded");
 import "./run";
 import { runStart } from "./Yuu API/RegisterStart";
 
