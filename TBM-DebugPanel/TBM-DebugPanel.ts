@@ -15,6 +15,8 @@ import {
 let isRegistered = false;
 const debugTag = "[TBM-DebugPanel]";
 
+console.log(`${debugTag} module loaded`);
+
 export function registerDebugPanel() {
   console.log(`${debugTag} registerDebugPanel called`);
 
@@ -27,6 +29,8 @@ export function registerDebugPanel() {
   console.log(`${debugTag} registering start callback`);
   registerStart(start);
 }
+
+registerDebugPanel();
 
 function start() {
   console.log(`${debugTag} start begin`);
