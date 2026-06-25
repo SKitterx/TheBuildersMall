@@ -3,7 +3,7 @@
 import { Vector3 } from "./Yuu API/Basic Types/Vector3";
 import { inWorldConsole } from "./Yuu API/Console";
 import { registerStart } from "./Yuu API/RegisterStart";
-import "./TBM-DebugPanel/TBM-DebugPanel";
+// import "./TBM-DebugPanel/TBM-DebugPanel";
 
 
 registerStart(start);
