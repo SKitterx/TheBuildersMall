@@ -1,4 +1,4 @@
-import { registerDebugPanel } from "./TBM-DebugPanel/DebugPanel";
+import { registerDebugPanel } from "./TBM-DebugPanel/debug";
 
 
 registerDebugPanel();
