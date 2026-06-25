@@ -13,18 +13,28 @@ import {
 
 
 let isRegistered = false;
+const debugTag = "[TBM-DebugPanel]";
 
 export function registerDebugPanel() {
+  console.log(`${debugTag} registerDebugPanel called`);
+
   if (isRegistered) {
+    console.log(`${debugTag} registerDebugPanel skipped (already registered)`);
     return;
   }
 
   isRegistered = true;
+  console.log(`${debugTag} registering start callback`);
   registerStart(start);
 }
 
 function start() {
+  console.log(`${debugTag} start begin`);
+
   const { pos, rot } = getPanelTransform();
+  console.log(`${debugTag} panel transform`, { pos, rot });
+
+  console.log(`${debugTag} creating palette panel`);
   const panel = createPalettePanel({
     eyebrow: "TBM",
     footerText: "Trigger = select  |  Panel = debug tools",
@@ -33,29 +43,35 @@ function start() {
     subtitle: "Quick controls for testing\nand live debugging.",
     title: "Debug Panel",
   });
+  console.log(`${debugTag} palette panel created`, panel);
 
+  console.log(`${debugTag} creating runtime section`);
   const runtimeSection = createPaletteSection({
     parent: panel.contentRoot,
     pos: new Vector3(0, 0.062, 0.002),
     subtitle: "Panel visibility and quick probes.",
     title: "Runtime",
   });
+  console.log(`${debugTag} runtime section created`, runtimeSection);
 
   createPaletteToggleChip({
     initialValue: true,
     label: "World Console",
     onValueChanged: (value) => {
+      console.log(`${debugTag} world console toggle changed`, { value });
       inWorldConsole.visible(value, pos.add(new Vector3(0, 0.08, -0.06)), rot);
     },
     parent: runtimeSection,
     pos: new Vector3(-0.14, 0.018, 0.002),
     scale: new Vector3(0.14, 0.04, 1),
   });
+  console.log(`${debugTag} world console toggle created`);
 
   createPaletteActionButton({
     backgroundColor: paletteTheme.accentSoft,
     fontSize: 2.3,
     onClick: () => {
+      console.log(`${debugTag} log ping clicked`);
       const playerPos = Player.position.get();
       const playerRot = Player.rotation.get();
 
@@ -70,17 +86,22 @@ function start() {
     text: "Log Ping",
     textColor: paletteTheme.text,
   });
+  console.log(`${debugTag} log ping button created`);
 
   createPaletteActionButton({
     backgroundColor: paletteTheme.surfaceRaised,
     fontSize: 2.3,
     onClick: () => {
+      console.log(`${debugTag} reapply pose clicked`);
       const playerPos = Player.position.get();
       const playerRot = Player.rotation.get();
 
       if (playerPos && playerRot) {
+        console.log(`${debugTag} reapplying player pose`, { playerPos, playerRot });
         Player.rotation.set(playerRot);
         Player.position.set(playerPos);
+      } else {
+        console.log(`${debugTag} cannot reapply pose`, { playerPos, playerRot });
       }
     },
     parent: runtimeSection,
@@ -89,14 +110,23 @@ function start() {
     text: "Reapply Pose",
     textColor: paletteTheme.text,
   });
+
+  console.log(`${debugTag} reapply pose button created`);
+  console.log(`${debugTag} start complete`);
 }
 
 function getPanelTransform(): { pos: Vector3; rot: Quaternion } {
+  console.log(`${debugTag} resolving panel transform`);
   const headPos = Player.head.position.get();
   const headRot = Player.head.rotation.get();
 
-  return {
+  console.log(`${debugTag} head transform read`, { headPos, headRot });
+
+  const transform = {
     pos: headPos ? headPos.add(new Vector3(0, 0.02, -0.65)) : new Vector3(0, 1.45, -1.2),
     rot: headRot ?? Quaternion.one,
   };
+
+  console.log(`${debugTag} panel transform resolved`, transform);
+  return transform;
 }
