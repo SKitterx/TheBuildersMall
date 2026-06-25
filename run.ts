@@ -1,3 +1,5 @@
+// load debug panel 
+// 
 import { Vector3 } from "./Yuu API/Basic Types/Vector3";
 import { inWorldConsole } from "./Yuu API/Console";
 import { registerStart } from "./Yuu API/RegisterStart";
@@ -10,3 +12,4 @@ function start() {
 
   console.log("Hello World!");
 }
+
