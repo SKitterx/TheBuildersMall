@@ -8,6 +8,6 @@ import { registerStart } from "./Yuu API/RegisterStart";
 registerStart(start);
 function start() {
   // inWorldConsole.visible(true, new Vector3(0, 1.5, -1.5));
-  // registerDebugPanel()
+  registerDebugPanel()
   console.log('Hello World!');
 }
